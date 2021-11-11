@@ -194,7 +194,7 @@ public final class ApolloStore {
       let object = try loadObject(forKey: key).get()
       
       let executor = GraphQLExecutor { object, info in
-        return object[info.cacheKeyForField]
+        return object[info.cacheKeyForField] ?? NSNull()
       } resolveReference: { reference in
         self.loadObject(forKey: reference.key)
       }
@@ -272,7 +272,7 @@ public final class ApolloStore {
                        variables: GraphQLMap?) throws {
       let normalizer = GraphQLResultNormalizer()
       let executor = GraphQLExecutor { object, info in
-        return object[info.responseKeyForField]
+        return object[info.responseKeyForField] ?? NSNull()
       }
       
       executor.cacheKeyForObject = self.cacheKeyForObject

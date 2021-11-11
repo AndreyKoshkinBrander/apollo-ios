@@ -47,7 +47,7 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet>: Parseable {
 
     if let dataEntry = body["data"] as? JSONObject {
       let executor = GraphQLExecutor { object, info in
-        return object[info.responseKeyForField]
+        return object[info.responseKeyForField] ?? NSNull()
       }
       
       executor.cacheKeyForObject = cacheKeyForObject
